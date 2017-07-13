@@ -43,6 +43,10 @@ describe Oystercard do
       expect(subject).not_to be_in_journey
     end
 
+    it 'has an empty list of journeys by default' do
+      expect(subject.journeys).to be_empty
+    end
+
     it 'changes in_journey to true with touch_in' do
       subject.touch_in(station)
       expect(subject).to be_in_journey
@@ -68,6 +72,12 @@ describe Oystercard do
       subject.touch_in(station)
       subject.touch_out(station)
       expect(subject.exit_station).to eq station
+    end
+
+    it 'stores the entry and exit stations in the jouneys array' do
+      subject.touch_in(station)
+      subject.touch_out(station)
+      expect(subject.journeys).to eq [{entry: station, exit: station}]
     end
 
   end
