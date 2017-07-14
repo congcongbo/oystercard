@@ -27,8 +27,8 @@ class Oystercard
     @balance += amount
   end
 
-  def deduct(amount)
-    @balance -= amount
+  def deduct
+    @balance -= @journey.fare
   end
 
   def touch_in(station)
@@ -43,7 +43,7 @@ class Oystercard
 
   def touch_out(station)
     @journey.exit(station)
-    deduct(MIN_CHARGE)
+    deduct
     @journeys << {entry: entry_station, exit: exit_station}
   end
 

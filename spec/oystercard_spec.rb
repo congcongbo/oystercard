@@ -25,7 +25,9 @@ describe Oystercard do
     describe '#deduct' do
       it 'deducts amount from card' do
         subject.top_up(Oystercard::MAX_BALANCE)
-        expect { subject.deduct 5 }.to change { subject.balance }.by -5
+        subject.touch_in(station)
+        subject.touch_out(station)
+        expect { subject.deduct }.to change { subject.balance }.by -1
       end
     end
 

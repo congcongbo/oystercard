@@ -36,4 +36,16 @@ describe Journey do
       expect(journey.complete?).to eq false
     end
   end
+
+  describe 'fare' do
+    it 'returns the minimum fare if both touch_in and touch_out happened' do
+      journey.exit(exit_station)
+      expect(journey.fare).to eq 1
+    end
+
+    it 'returns the penalty of 6 if either touch_in or touch_out happened' do
+      expect(journey.fare).to eq 6
+    end
+  end
+
 end

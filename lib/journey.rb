@@ -15,4 +15,9 @@ class Journey
   def complete?
     !!@exit_station
   end
+
+  def fare
+    return 1 if complete?
+    6
+  end
 end
