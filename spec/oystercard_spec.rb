@@ -4,26 +4,33 @@ describe Oystercard do
 
   let(:station) {double :station}
 
+context 'balance tests' do
+
   describe '#balance' do
     it 'shows balance of 0 for newly initiated card' do
       expect(subject.balance).to eq 0
     end
   end
 
-  describe '#change_balance' do
-    before(:each) { subject.top_up(Oystercard::MAX_BALANCE) }
+  describe '#top_up' do
     it 'tops up the balance when requested' do
+      subject.top_up(Oystercard::MAX_BALANCE)
       expect(subject.balance).to eq Oystercard::MAX_BALANCE
     end
 
     it 'sets maximum limit of £90' do
+      subject.top_up(Oystercard::MAX_BALANCE)
       expect { subject.top_up 1 }.to raise_error "You tried to increase your balance by #{Oystercard::MAX_BALANCE + 1}. This is impossible! The maximum limit is £#{Oystercard::MAX_BALANCE}!"
     end
+  end
 
+  describe '#deduct' do
     it 'deducts amount from card' do
+      subject.top_up(Oystercard::MAX_BALANCE)
       expect { subject.deduct 5 }.to change { subject.balance }.by -5
     end
   end
+end
 
   describe '#journey' do
     it 'sets minimim balance for touch in to be allowed' do
