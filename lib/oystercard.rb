@@ -46,10 +46,5 @@ class Oystercard
     deduct(MIN_CHARGE)
     @journeys << {entry: entry_station, exit: exit_station}
   end
-end
 
-private
-
-def deduct(amount)
-  @balance -= amount
 end
